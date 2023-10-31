@@ -40,7 +40,14 @@ const getBooks = async (req, res) => {
 const getBookBy_Id = async (req, res) => {
   try {
     // console.log(req.params);
+
     const book = await model.findById(req.params.id);
+    if (book === null) {
+      res.status(404).json({
+        status: "fail",
+        message: "book not found",
+      });
+    }
     res.status(200).json({
       status: "success",
       data: book,
